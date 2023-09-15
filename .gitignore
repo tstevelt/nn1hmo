@@ -1,0 +1,8 @@
+nn1hmo.a
+makefile.production
+makefile.sanitize
+makefile.shslib
+nohup.out
+Predict.sh
+SaveTest.sh
+StockSim.model
