@@ -14,11 +14,11 @@
 	Who		Date		Modification
 	---------------------------------------------------------------------
 	tms		08/31/2023	Copied from nn1h (1 hidden and 1 output)
+	tms		10/03/2023	Added optional ID first column. Added LEARN mode.
 
 ----------------------------------------------------------------------------*/
 
 #define		MAIN
-
 #include	"nn1hmo.h"
 
 int main ( int argc, char *argv[] )
@@ -32,7 +32,14 @@ int main ( int argc, char *argv[] )
 		case MODE_TRAIN:
 			StartSignals ();
 			printf ( "training on  %s\n", DataFilename );
-			printf ( "split ratio  %.2f/%.2f\n", SplitTrain, SplitTest );
+			if ( SplitFile == 'Y' )
+			{
+				printf ( "split ratio  %.2f/%.2f\n", SplitTrain, SplitTest );
+			}
+			else
+			{
+				printf ( "no split\n" );
+			}
 			printf ( "input  count %ld\n", InputCount );
 			for ( int i = 0; i < HiddenLayers; i++ )
 			{
@@ -42,14 +49,24 @@ int main ( int argc, char *argv[] )
 			printf ( "epoch  count %d\n", EpochCount );
 			printf ( "target accu  %g\n", TargetAccuracy );
 			printf ( "learn rate   %g\n", LearningRate );
-			train ( SEED_NONE, 1 );
+			train ( SEED_USEC, 1 );
+			break;
+		case MODE_LEARN:
+			learn  ( SEED_USEC, 1 );
 			break;
 		case MODE_ALGO:
 			algo ();
 			break;
 		case MODE_TEST:
 			printf ( "testing on  %s\n", DataFilename );
-			printf ( "split ratio %.2f/%.2f\n", SplitTrain, SplitTest );
+			if ( SplitFile == 'Y' )
+			{
+				printf ( "split ratio %.2f/%.2f\n", SplitTrain, SplitTest );
+			}
+			else
+			{
+				printf ( "no split\n" );
+			}
 			test ();
 			break;
 		case MODE_PREDICT:

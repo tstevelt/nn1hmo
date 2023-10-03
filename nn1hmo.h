@@ -32,8 +32,9 @@
 #define		MODE_ALGO		2
 #define		MODE_TEST		3
 #define		MODE_PREDICT	4
-#define		MODE_DUMP		5
-#define		MODE_FOO		6
+#define		MODE_LEARN		5
+#define		MODE_DUMP		6
+#define		MODE_FOO		7
 TYPE	int		RunMode;
 
 #define		SEED_NONE		1
@@ -54,6 +55,8 @@ TYPE	long	HiddenNeurons[MAXLAYERS];
 TYPE	double	SplitTrain;
 TYPE	double	SplitTest;
 TYPE	int		Normalize;
+TYPE	int		HasID;
+TYPE	char	SplitFile;
 TYPE	long	StartTime, EndTime, TotalTime, Minutes, Seconds;
 
 #define	INDEX(a,c2,b)	a*c2+b
@@ -74,6 +77,7 @@ TYPE	double	*OutputArray;
 ----------------------------*/
 
 /* algo.c */
+void select_parents ( int *Parent1 , int *Parent2 );
 void algo ( void );
 
 /* genparms.c */
@@ -87,6 +91,9 @@ void getparms ( char *ParmFile );
 
 /* init.c */
 void init ( int SeedMode );
+
+/* learn.c */
+void learn ( int SeedMode , int ProgressMode );
 
 /* miscfuncs.c */
 double sigmoid ( double x );
@@ -105,6 +112,19 @@ int main ( int argc , char *argv []);
 
 /* predict.c */
 void predict ( void );
+
+/* shslib.c */
+double d_random ( void );
+double d_random_range ( double low , double high );
+int findmax ( double Array [], int Count );
+short flip ( double probability );
+int GetTokensD ( char xbuf [], char delim [], char *toks [], int maxtoks );
+int GetTokensW ( char xbuf [], char *toks [], int maxtoks );
+void MinMaxScale ( double Array [], int StartIndex , int Length );
+long random_range ( long low , long high );
+void seed_random_with_usec ( void );
+int nsStrlen ( const char *cpOne );
+char *nsStrchr ( const char *cpOne , int intChar );
 
 /* SignalFuncs.c */
 void StartSignals ( void );

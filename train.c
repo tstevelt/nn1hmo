@@ -32,6 +32,7 @@ static void LoadData ()
 	char	*tokens[InputCount+OutputCount+2];
 	int		tokcnt, xt;
 	int		TrueCount, FalseCount;
+	int		TotalLines, TrainLines;
 
 	if (( fp = fopen ( DataFilename, "r" )) == NULL )
 	{
@@ -42,12 +43,19 @@ static void LoadData ()
 	/*----------------------------------------------------------
 		count number of input lines
 	----------------------------------------------------------*/
-	int TotalLines = 0;
+	TotalLines = 0;
 	while ( fgets ( xbuffer, sizeof(xbuffer), fp ) != NULL )
 	{
 		TotalLines++;
 	}
-	int TrainLines = TotalLines * SplitTrain;
+	if ( SplitFile == 'Y' )
+	{
+		TrainLines = TotalLines * SplitTrain;
+	}
+	else
+	{
+		TrainLines = TotalLines;
+	}
 	rewind ( fp );
 
 	/*----------------------------------------------------------
@@ -64,9 +72,9 @@ static void LoadData ()
 			break;
 		}
 				
-		if (( tokcnt = GetTokensD ( xbuffer, ",\n\r", tokens, InputCount + OutputCount + 2 )) < InputCount+OutputCount )
+		if (( tokcnt = GetTokensD ( xbuffer, ",\n\r", tokens, HasID + InputCount + OutputCount + 2 )) < InputCount+OutputCount )
 		{
-			printf ( "syntax error line %d\n", lineno );
+			printf ( "train: syntax error line %d, tokcnt %d\n", lineno, tokcnt );
 			continue;
 		}
 
@@ -76,9 +84,9 @@ static void LoadData ()
 			exit ( 1 );
 		}
 
-		for ( xt = 0; xt < InputCount; xt++ )
+		for ( xt = HasID; xt < HasID + InputCount; xt++ )
 		{
-			DataArray[DataCount].Data[xt] = atof ( tokens[xt] );
+			DataArray[DataCount].Data[xt-HasID] = atof ( tokens[xt] );
 		}
 
 		if ( Normalize == 'r' )
@@ -101,7 +109,7 @@ static void LoadData ()
 		else
 		{
 			int		OneCount = 0;
-			for ( int xo = 0; xt < InputCount + OutputCount; xt++, xo++ )
+			for ( int xo = 0; xt < HasID + InputCount + OutputCount; xt++, xo++ )
 			{
 				DataArray[DataCount].Label[xo] = atoi ( tokens[xt] );
 				if ( DataArray[DataCount].Label[xo] == 1 )
@@ -226,7 +234,10 @@ double train ( int SeedMode, int ProgressMode )
 	/*----------------------------------------------------------
 		initialize learning rate, bias arrays and weight arrays.
 	----------------------------------------------------------*/
-	init ( SeedMode );
+	if ( RunMode == MODE_TRAIN )
+	{
+		init ( SeedMode );
+	}
 	
 	for ( int epoch = 0; epoch < EpochCount; epoch++ )
 	{

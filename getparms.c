@@ -84,7 +84,28 @@ void getparms ( char *ParmFile )
 				case 'a':
 					break;
 				default:
-					printf ( "-n  requires n (none) r (row wise) or c (column wise) a (all)\n" );
+					printf ( "normalize requires n (none) r (row wise) or c (column wise) a (all)\n" );
+					exit ( 1 );
+			}
+		}
+		else if ( strcmp ( tokens[0], "id" ) == 0 )
+		{
+			switch( tokens[1][0] )
+			{
+				case 'n':
+				case 'N':
+				case '0':
+					HasID = 0;
+					break;
+
+				case 'y':
+				case 'Y':
+				case '1':
+					HasID = 1;
+					break;
+
+				default:
+					printf ( "id should be either 'y' or 'n' \n" );
 					exit ( 1 );
 			}
 		}

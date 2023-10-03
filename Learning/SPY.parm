@@ -1,0 +1,11 @@
+#datafile SPY.dat
+split 1.0 0.0
+normalize r
+id y
+inputs 20
+layers 1 16
+outputs 3
+learnrate 0.18
+epochs 2500
+accuracy 0.99
+model SPY.model

@@ -16,6 +16,7 @@ void test ()
 	double	Prediction = 0.0;
 	int		TrueCount, FalseCount;
 	int		InputLabel[InputCount];
+	int		TotalLines, TrainLines, TestLines;
 
 	loadmodel ();
 
@@ -28,13 +29,21 @@ void test ()
 	/*----------------------------------------------------------
 		count number of input lines
 	----------------------------------------------------------*/
-	int TotalLines = 0;
+	TotalLines = 0;
 	while ( fgets ( xbuffer, sizeof(xbuffer), fp ) != NULL )
 	{
 		TotalLines++;
 	}
-	int TrainLines = TotalLines * SplitTrain;
-	int TestLines = TotalLines * SplitTest;
+	if ( SplitFile == 'Y' )
+	{
+		TrainLines = TotalLines * SplitTrain;
+		TestLines = TotalLines * SplitTest;
+	}
+	else
+	{
+		TrainLines = 0;
+		TestLines = TotalLines;
+	}
 	rewind ( fp );
 
 	TrueCount = FalseCount = 0;
@@ -47,15 +56,15 @@ void test ()
 			continue;
 		}
 				
-		if (( tokcnt = GetTokensD ( xbuffer, ",\n\r", tokens, InputCount + OutputCount + 2 )) < InputCount+OutputCount )
+		if (( tokcnt = GetTokensD ( xbuffer, ",\n\r", tokens, HasID + InputCount + OutputCount + 2 )) < InputCount+OutputCount )
 		{
 			printf ( "syntax error line %d, tokcnt %d\n", lineno, tokcnt );
 			continue;
 		}
 
-		for ( xt = 0; xt < InputCount; xt++ )
+		for ( xt = HasID; xt < HasID + InputCount; xt++ )
 		{
-			InputArray[xt] = atof ( tokens[xt] );
+			InputArray[xt-HasID] = atof ( tokens[xt] );
 		}
 
 		if ( Normalize == 'r' )
@@ -69,7 +78,7 @@ void test ()
 //		}
 
 		int		OneCount = 0;
-		for ( int xo = 0; xt < InputCount + OutputCount; xt++, xo++ )
+		for ( int xo = 0; xt < HasID + InputCount + OutputCount; xt++, xo++ )
 		{
 			InputLabel[xo] = atoi ( tokens[xt] );
 			if ( InputLabel[xo] == 1 )

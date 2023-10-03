@@ -1,0 +1,26 @@
+
+# StockSimR.parm parameter file (auto generated).
+
+#mode train
+#mode test
+#mode predict
+datafile ../Data/StockSimR.csv
+
+model StockSimR.model
+
+inputs	75
+
+layers	1	45
+
+outputs	1
+
+learnrate	0.1
+
+normalize r
+
+epochs	2500
+
+accuracy	0.995
+
+split	0.8 0.2
+

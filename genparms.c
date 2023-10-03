@@ -36,6 +36,8 @@ void genparms ( char *ParmFile )
 
 	fprintf ( pfp, "normalize n/r/c/a\n\n" );
 
+	fprintf ( pfp, "id n/y\n\n" );
+
 	fprintf ( pfp, "# Maxinum INPUTS is %d\n", MAXINPUTS );
 	fprintf ( pfp, "inputs	INPUTS\n\n" );
 

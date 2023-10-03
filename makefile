@@ -8,17 +8,18 @@ CFLAGS = -g -fsanitize=address -Wall -Wformat-truncation=0 -I../../include -I/us
 
 FILES = \
 	$(LIB)(nn1hmo.o)	\
-	$(LIB)(shslib.o)	\
-	$(LIB)(getargs.o)	\
+	$(LIB)(algo.o)		\
 	$(LIB)(genparms.o)	\
+	$(LIB)(getargs.o)	\
 	$(LIB)(getparms.o)	\
 	$(LIB)(init.o)		\
-	$(LIB)(train.o)		\
-	$(LIB)(algo.o)		\
-	$(LIB)(test.o)		\
-	$(LIB)(predict.o)	\
+	$(LIB)(learn.o)		\
 	$(LIB)(miscfuncs.o)	\
 	$(LIB)(modelfuncs.o) \
+	$(LIB)(predict.o)	\
+	$(LIB)(shslib.o)	\
+	$(LIB)(test.o)		\
+	$(LIB)(train.o)		\
 	$(LIB)(SignalFuncs.o)
 
 .SILENT:
