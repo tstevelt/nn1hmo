@@ -4,17 +4,22 @@ What's with the funny name?  No doubt you guessed “nn” stands for Neural Net
 
 Here is the usage message:
 
-USAGE: nn1hmo {-train|-test|-predict|-algo}
 USAGE: nn1hmo [options] -p file [options]
+USAGE: nn1hmo {-train|-test|-predict|-learn|-algo}
 USAGE: nn1hmo  -dump model
 USAGE: nn1hmo  -foo
 options:
  -f file  data file
  -g file  generate default parameter file
+ -m file  model file
+ -id      data file first column is ID
  -e #     epochs (for -train), default 2500
  -a #.#   target accuracy, default is 0.99
+ -w #     window width (for -dump), default 132
+ -split x split file y or n.  n ignores setting in parm file
  -n flag  normalize data. flag n/r/c/a
  -d       debug
+Note that position of parameter file controls overrides
 
 Data for training, testing and algo is comma separated with input columns followed by 1 or more output columns. Data for prediction is comma separated with one ID column followed by the same number of input columns. 
 
