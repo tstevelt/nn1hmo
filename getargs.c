@@ -11,7 +11,7 @@ static void Usage ()
 {
 	printf ( "USAGE: nn1hmo [options] -p file [options]\n" );
 	printf ( "USAGE: nn1hmo {-train|-test|-predict|-learn|-algo}\n" );
-	printf ( "USAGE: nn1hmo  -dump model\n" );
+	printf ( "USAGE: nn1hmo  -dump model [-fmt|-raw]\n" );
 	printf ( "USAGE: nn1hmo  -foo\n" );
 	printf ( "options:\n" );
 	printf ( " -f file  data file\n" );
@@ -79,9 +79,17 @@ void getargs ( int argc, char *argv[] )
 		}
 		else if ( xa + 1 < argc && strcmp ( argv[xa], "-dump" ) == 0 )
 		{
-			RunMode = MODE_DUMP;
+			RunMode = MODE_DUMP_FMT;
 			xa++;
 			strcpy ( ModelFilename, argv[xa] );
+		}
+		else if ( RunMode == MODE_DUMP_FMT && strcmp ( argv[xa], "-fmt" ) == 0 )
+		{
+			RunMode = MODE_DUMP_FMT;
+		}
+		else if ( RunMode == MODE_DUMP_FMT && strcmp ( argv[xa], "-raw" ) == 0 )
+		{
+			RunMode = MODE_DUMP_RAW;
 		}
 		else if ( strcmp ( argv[xa], "-foo" ) == 0 )
 		{

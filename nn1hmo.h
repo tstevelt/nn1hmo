@@ -33,8 +33,9 @@
 #define		MODE_TEST		3
 #define		MODE_PREDICT	4
 #define		MODE_LEARN		5
-#define		MODE_DUMP		6
-#define		MODE_FOO		7
+#define		MODE_DUMP_FMT	6
+#define		MODE_DUMP_RAW	7
+#define		MODE_FOO		8
 TYPE	int		RunMode;
 
 #define		SEED_NONE		1

@@ -134,23 +134,57 @@ void dump ()
 	printf ( "\n\nHiddenBias\n" );
 	for ( i = 0, w = 0; i < HiddenNeurons[0]; i++ )
 	{
-		w += printf ( " %10.4f", HiddenBias[i] );
-
-		if ( w + 11 >= WindowWidth )
+		if ( RunMode == MODE_DUMP_FMT )
 		{
-			printf ( "\n" );
-			w = 0;
+			w += printf ( " %10.4f", HiddenBias[i] );
+
+			if ( w + 11 >= WindowWidth )
+			{
+				printf ( "\n" );
+				w = 0;
+			}
+		}
+		else
+		{
+			printf ( "%10.4f\n", HiddenBias[i] );
 		}
 	}
 
 	printf ( "\n\nWeightsIH\n" );
 	for ( i = 0, w = 0; i < InputCount; i++ )
 	{
-		w = printf ( "%2d:", i );
-
-		for ( j = 0; j < HiddenNeurons[0]; j++ )
+		if ( RunMode == MODE_DUMP_FMT )
 		{
-			w += printf ( " %10.4f", WeightsIH[INDEX(i,HiddenNeurons[0],j)] );
+			w = printf ( "%2d:", i );
+
+			for ( j = 0; j < HiddenNeurons[0]; j++ )
+			{
+				w += printf ( " %10.4f", WeightsIH[INDEX(i,HiddenNeurons[0],j)] );
+
+				if ( w + 11 >= WindowWidth )
+				{
+					printf ( "\n" );
+					w = 0;
+				}
+			}
+			printf ( "\n" );
+			w = 0;
+		}
+		else
+		{
+			for ( j = 0; j < HiddenNeurons[0]; j++ )
+			{
+				printf ( "%10.4f\n", WeightsIH[INDEX(i,HiddenNeurons[0],j)] );
+			}
+		}
+	}
+
+	printf ( "\n\nOutputBias\n" );
+	for ( i = 0, w = 0; i < OutputCount; i++ )
+	{
+		if ( RunMode == MODE_DUMP_FMT )
+		{
+			w += printf ( " %10.4f", OutputBias[i] );
 
 			if ( w + 11 >= WindowWidth )
 			{
@@ -158,42 +192,42 @@ void dump ()
 				w = 0;
 			}
 		}
-		printf ( "\n" );
-		w = 0;
-	}
-
-	printf ( "\n\nOutputBias\n" );
-	for ( i = 0, w = 0; i < OutputCount; i++ )
-	{
-		w += printf ( " %10.4f", OutputBias[i] );
-
-		if ( w + 11 >= WindowWidth )
+		else
 		{
-			printf ( "\n" );
-			w = 0;
+			printf ( "%10.4f\n", OutputBias[i] );
 		}
 	}
 
 	printf ( "\n\nWeightsHO\n" );
 	for ( i = 0, w = 0; i < HiddenNeurons[0]; i++ )
 	{
-		w = printf ( "%2d:", i );
-
-		for ( j = 0; j < OutputCount; j++ )
+		if ( RunMode == MODE_DUMP_FMT )
 		{
-			w += printf ( " %10.4f", WeightsHO[INDEX(i,OutputCount,j)] );
+			w = printf ( "%2d:", i );
 
-			if ( w + 11 >= WindowWidth )
+			for ( j = 0; j < OutputCount; j++ )
+			{
+				w += printf ( " %10.4f", WeightsHO[INDEX(i,OutputCount,j)] );
+
+				if ( w + 11 >= WindowWidth )
+				{
+					printf ( "\n" );
+					w = 0;
+				}
+			}
+
+			// if ( w + 11 >= WindowWidth )
 			{
 				printf ( "\n" );
 				w = 0;
 			}
 		}
-
-		// if ( w + 11 >= WindowWidth )
+		else
 		{
-			printf ( "\n" );
-			w = 0;
+			for ( j = 0; j < OutputCount; j++ )
+			{
+				printf ( "%10.4f\n", WeightsHO[INDEX(i,OutputCount,j)] );
+			}
 		}
 	}
 }

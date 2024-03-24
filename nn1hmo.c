@@ -72,7 +72,8 @@ int main ( int argc, char *argv[] )
 		case MODE_PREDICT:
 			predict ();
 			break;
-		case MODE_DUMP:
+		case MODE_DUMP_FMT:
+		case MODE_DUMP_RAW:
 			dump ();
 			break;
 		case MODE_FOO:
