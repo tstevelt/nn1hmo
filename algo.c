@@ -164,7 +164,7 @@ void algo ()
 		case SEED_NONE:
 			break;
 		case SEED_USEC:
-			seed_random_with_usec ();
+			shs_seed_random ();
 			break;
 		case SEED_SAME:
 			srand ( 12345 );

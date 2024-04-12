@@ -196,7 +196,7 @@ long random_range ( long low, long high )
 	return ( rv );
 }
 
-void seed_random_with_usec ( void )
+void shs_seed_random ( void )
 {
 	struct timeval		tv;
 	unsigned int		Nut;

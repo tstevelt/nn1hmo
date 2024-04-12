@@ -23,6 +23,6 @@ int GetTokensD ( char xbuf [], char delim [], char *toks [], int maxtoks );
 int GetTokensW ( char xbuf [], char *toks [], int maxtoks );
 void MinMaxScale ( double Array [], int StartIndex , int Length );
 long random_range ( long low , long high );
-void seed_random_with_usec ( void );
+void shs_seed_random ( void );
 int nsStrlen ( const char *cpOne );
 char *nsStrchr ( const char *cpOne , int intChar );
